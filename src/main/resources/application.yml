@@ -1,0 +1,45 @@
+quarkus:
+  http:
+    port: 8081
+  log:
+    level: INFO
+  hibernate-orm:
+    database:
+      #generation: drop-and-create
+      generation: update
+    log:
+      sql: true
+    dialect: org.hibernate.dialect.PostgreSQL10Dialect
+    jdbc:
+      timezone: UTC
+  datasource:
+    db-kind: postgresql
+    username: postgres
+    password: postgres
+    jdbc: false
+    reactive:
+      url: postgresql://localhost:5432/erickdiaz
+      max-size: 20
+  
+  kafka-streams:
+    application-id: orders-aggregator
+    bootstrap-servers: localhost:9092
+    topics: products,items
+    cache:
+      max:
+        bytes:
+          buffering: 10240
+    commit:
+      interval:
+        ms: 1000
+    metadata:
+      max:
+        age:
+          ms: 500
+    auto:
+      offset:
+        reset: earliest
+    metrics:
+      recording:
+        level: DEBUG
+
