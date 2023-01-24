@@ -75,7 +75,17 @@ public class TopologyProducer {
         .join(productTable,
         (productId, itemId) -> productId,
         (item, product) -> item)
-        .print(Printed.toSysOut());
+        .peek((k, v) -> {
+                log.infof("New: %s", v.getProductSell());
+                Product product = new Product();
+                product.setId(v.getProductSell().getId());
+                product.setTitle(v.getProductSell().getName());
+                product.setDescription(v.getProductSell().getDescription());
+                // Product build = Product.builder().id(v.getProductSell().getId()).title(v.getProductSell().getName())
+                //         .description(v.getProductSell().getDescription()).build();
+                Product.persist(product).onFailure().transform(t -> new IllegalStateException(t));
+        });
+        //.print(Printed.toSysOut());
 
         // productEvents
         // .peek((key, value) -> System.out.println("Before key=" + key + ", value=" +

@@ -1,5 +1,6 @@
 package org.acme.entity;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
@@ -53,7 +54,7 @@ public class ShoppingCart extends PanacheEntityBase {
     public String name;
 
     public void calculateCartTotal() {
-        // cartTotal = cartItems.stream().mapToInt(ShoppingCartItem::getQuantity).sum();
+        cartTotal = cartItems.stream().mapToInt(ShoppingCartItem::getQuantity).sum();
     }
 
     public static Uni<ShoppingCart> findByShoppingCartId(Long id) {
@@ -102,13 +103,13 @@ public class ShoppingCart extends PanacheEntityBase {
                             }
 
                             if (entity.getItem3() == null) {
-                                // ShoppingCartItem cartItem = ShoppingCartItem.builder()
-                                //         .cart(entity.getItem1())
-                                //         .product(entity.getItem4())
-                                //         .quantity(1)
-                                //         .totalPrice(new BigDecimal(randomNumber))
-                                //         .build();
-                                // entity.getItem2().add(cartItem);
+                                ShoppingCartItem cartItem = ShoppingCartItem.builder()
+                                        .cart(entity.getItem1())
+                                        .product(entity.getItem4())
+                                        .quantity(1)
+                                        .totalPrice(new BigDecimal(randomNumber))
+                                        .build();
+                                entity.getItem2().add(cartItem);
                             } else {
                                 entity.getItem3().quantity++;
                             }

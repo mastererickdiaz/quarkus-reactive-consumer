@@ -22,14 +22,17 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.smallrye.mutiny.Uni;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @RegisterForReflection
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Cacheable
+@Getter
+@Setter
 public class Product extends PanacheEntityBase {
 
     @Id
